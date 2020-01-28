@@ -1,0 +1,16 @@
+.sideMenu {
+  height: 100vh;
+  background-color: #4d505b;
+  position: fixed;
+  width: 300px;
+}
+.sideMenuMainButton div > a {
+  background-color: #4d505b !important;
+  border: 0px solid black !important;
+  border-top: 1px solid rgba(52, 56, 65, 0.6) !important;
+  color: white !important;
+}
+
+.side-bar {
+  padding-right: 0 !important;
+}

@@ -2,9 +2,11 @@ import React, { useContext, Fragment } from "react";
 import dashboardContext from "../../context/dashboard/dashboardContext";
 
 //Components
+import { Panel } from "primereact/panel";
 import SideMenu from "./SideMenu";
 // import { DataTable, Column } from "primereact/datatable";
-import { Card } from "primereact/card";
+import Counters from "./Counters";
+import MainTable from "../tables/MainTable";
 
 //css
 import "primereact/resources/themes/nova-light/theme.css";
@@ -20,39 +22,18 @@ const Dashboard = () => {
   return (
     <Fragment>
       <div className="p-grid">
-        <div className="p-col-fixed side-bar" style={{ width: "300px" }}>
+        <div className="p-col-fixed side-bar" style={{ width: "250px" }}>
           <SideMenu />
         </div>
         <div className="p-col container">
-          <div className="p-grid">
-            <div className="p-col 4">
-              <Card
-                title="Gestiones"
-                className="card-summary"
-                subTitle="Gestiones pendientes"
-              >
-                <div className="count arrangements">12</div>
-              </Card>
-            </div>
-            <div className="p-col 4">
-              <Card
-                title="Promesas"
-                className="card-summary"
-                subTitle="Promesas de pago"
-              >
-                <div className="count payment-promises">12</div>
-              </Card>
-            </div>
-            <div className="p-col 4">
-              <Card
-                title="Cuentas"
-                className="card-summary"
-                subTitle="Cuentas sin gestiones"
-              >
-                <div className="count unmanaged-accounts">12</div>
-              </Card>
-            </div>
-          </div>
+          <Counters />
+
+          <Panel header="Tablas" className="panel-tables">
+            {" "}
+            sdfsadfasd
+            <MainTable />
+            <MainTable />
+          </Panel>
 
           {/* <DataTable
             value={[

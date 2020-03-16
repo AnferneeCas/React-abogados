@@ -6,14 +6,20 @@ import Dashboard from "../src/componentes/layout/Dashboard";
 
 //Context
 import DashboardState from "./context/dashboard/dashboardState";
+import StatsState from "./context/stats/statsState";
+import MainTableState from "./context/mainTable/mainTableState";
 function App() {
   return (
     <DashboardState>
-      <Router>
-        <Switch>
-          <Route exact path="/dashboard" component={Dashboard} />
-        </Switch>
-      </Router>
+      <StatsState>
+        <MainTableState>
+          <Router>
+            <Switch>
+              <Route exact path="/dashboard" component={Dashboard} />
+            </Switch>
+          </Router>
+        </MainTableState>
+      </StatsState>
     </DashboardState>
   );
 }

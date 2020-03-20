@@ -5,7 +5,7 @@ const DashboardState = props => {
   const initialState = {};
 
   const [state, dispatch] = useReducer(dashboardReducer, initialState);
-
+  console.log("loading dashboard");
   return (
     <dashboardContext.Provider value={{}}>
       {props.children}

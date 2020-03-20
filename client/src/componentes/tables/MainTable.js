@@ -5,11 +5,14 @@ import "./MainTable.css";
 import mainTableContext from "../../context/mainTable/mainTableContext";
 
 //Components
-import { Dialog } from "primereact/dialog";
+
+import {TabView,TabPanel} from 'primereact/tabview';
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { ContextMenu } from "primereact/contextmenu";
 import FormNewArrangementExtrajudicial from "./FormNewArrangementExtrajudicial";
+import Menu from '../tables/menu/Menu';
 const MainTable = () => {
   var cm = createRef();
   var MainTableContext = useContext(mainTableContext);
@@ -18,8 +21,10 @@ const MainTable = () => {
     getAccounts,
     selectedAccount,
     changedSelectedAccount,
-    showAddArrangementAccion,
-    changeShowAddArrangementAccion
+    isMenuActive,
+    showMenu,
+    menuIndex,
+    changeMenuIndex
   } = MainTableContext;
 
   ////////////////////////////////////////////////////MENU//////////////////////////////////////////////////////////////////////////
@@ -28,25 +33,49 @@ const MainTable = () => {
     {
       label: "Agregar Gestion Extrajudicial",
       icon: "pi pi-fw pi-plus",
+      tabNumber:0,
       command: event => {
-        viewAccount(selectedAccount);
-        changeShowAddArrangementAccion(true);
+        changeMenuIndex(0)
+        // viewAccount(selectedAccount);
+        showMenu(true);
       }
     },
     {
-      label: "Delete",
-      icon: "pi pi-fw pi-times"
+      label: "Agregar Gestion Judicial",
+      icon: "pi pi-fw pi-plus",
+      tabNumber:1,
+      command: event => {
+        changeMenuIndex(1)
+        // viewAccount(selectedAccount);
+        showMenu(true);
+      }
     },
     {
-      label: "Ver mas informacion",
-      icon: "pi pi-fw pi-plus"
+      label: "Ver gestiones",
+      icon: "pi pi-fw pi-plus",
+      tabNumber:2,
+      command: event => {
+        changeMenuIndex(2)
+        // viewAccount(selectedAccount);
+        showMenu(true);
+      }
+    },
+    {
+      label: "Mas informacion",
+      icon: "pi pi-fw pi-plus",
+      tabNumber:3,
+      command: event => {
+        changeMenuIndex(3)
+        // viewAccount(selectedAccount);
+        showMenu(true);
+      }
     }
   ];
 
   //Do when a row is right clicked
   const viewAccount = selectedAccount => {
     console.log(selectedAccount);
-    changeShowAddArrangementAccion(true);
+    showMenu(true);
   };
 
   /////////////////////////////////////////////MODAL/////////////////////////////////////////////////////////////////////////////////
@@ -60,11 +89,15 @@ const MainTable = () => {
       <div className="p-col-12">
         <ContextMenu model={mn} ref={el => (cm = el)} />
 
-        {showAddArrangementAccion ? (
-          <FormNewArrangementExtrajudicial
-            selectedCharacterizationprop={selectedAccount.characterization}
-            show={true}
-          ></FormNewArrangementExtrajudicial>
+        {isMenuActive ? (
+          
+          <Menu tabNumber={menuIndex}>
+
+          </Menu>
+          // <FormNewArrangementExtrajudicial
+          //   selectedCharacterizationprop={selectedAccount.characterization}
+          //   show={true}
+          // ></FormNewArrangementExtrajudicial>
         ) : null}
         <DataTable
           style={{ textAlign: "Center" }}

@@ -1,9 +1,10 @@
 import {
   GET_ACCOUNTS,
   CHANGED_SELECTED_ACCOUNT,
-  CHANGE_SHOW_ADD_ARRANGEMENT_ACTION,
+  SHOW_MENU,
   GET_CHARACTERIZATION,
-  CHANGE_CHARACTERIZATION
+  CHANGE_CHARACTERIZATION,
+  CHANGE_INDEX
 } from "../../types";
 
 export default (state, action) => {
@@ -19,10 +20,10 @@ export default (state, action) => {
         selectedAccount: action.payload
       };
 
-    case CHANGE_SHOW_ADD_ARRANGEMENT_ACTION:
+    case SHOW_MENU:
       return {
         ...state,
-        showAddArrangementAccion: action.payload
+        isMenuActive: action.payload
       };
     case GET_CHARACTERIZATION:
       return {
@@ -39,6 +40,12 @@ export default (state, action) => {
           }
         })
       };
+
+      case CHANGE_INDEX:
+        return{
+          ...state,
+          menuIndex: action.payload
+        }
     default:
       return state;
   }

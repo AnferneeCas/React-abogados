@@ -1,12 +1,14 @@
 import React, { useReducer } from "react";
 import mainTableContext from "./mainTableContext";
 import mainTableReducer from "./mainTableReducer";
+import firebase from "../../firebase";
 import {
   GET_ACCOUNTS,
   CHANGED_SELECTED_ACCOUNT,
-  CHANGE_SHOW_ADD_ARRANGEMENT_ACTION,
+  SHOW_MENU,
   GET_CHARACTERIZATION,
-  CHANGE_CHARACTERIZATION
+  CHANGE_CHARACTERIZATION,
+  CHANGE_INDEX
 } from "../../types";
 var cuentas = [
   {
@@ -53,14 +55,34 @@ const MainTableState = props => {
   const initialState = {
     accounts: [],
     selectedAccount: "",
-    showAddArrangementAccion: false,
-    characterizations: []
+    isMenuActive: false,
+    characterizations: [],
+    menuIndex: 0
   };
+
+  console.log("loading maintable");
 
   const [state, dispatch] = useReducer(mainTableReducer, initialState);
 
+  //change the index of the menu
+  const changeMenuIndex = index => {
+    dispatch({
+      type: CHANGE_INDEX,
+      payload: index
+    });
+  };
+
   //get accounts from api
-  const getAccounts = () => {
+  const getAccounts = async () => {
+    var test = await firebase.getCuentasGestor();
+    test.forEach(async doc => {
+      // console.log(doc.data());
+      var test = await firebase.db
+        .collection("clientes")
+        .doc(doc.data().clienteId)
+        .get();
+      console.log(test.data());
+    });
     dispatch({
       type: GET_ACCOUNTS,
       payload: cuentas
@@ -76,9 +98,9 @@ const MainTableState = props => {
   };
 
   //Show addArrangement submenu when click on table
-  const changeShowAddArrangementAccion = bool => {
+  const showMenu = bool => {
     dispatch({
-      type: CHANGE_SHOW_ADD_ARRANGEMENT_ACTION,
+      type: SHOW_MENU,
       payload: bool
     });
   };
@@ -107,13 +129,15 @@ const MainTableState = props => {
       value={{
         accounts: state.accounts,
         selectedAccount: state.selectedAccount,
-        showAddArrangementAccion: state.showAddArrangementAccion,
+        isMenuActive: state.isMenuActive,
         characterizations: state.characterizations,
+        menuIndex: state.menuIndex,
         getAccounts,
         changedSelectedAccount,
-        changeShowAddArrangementAccion,
+        showMenu,
         getCharacterization,
-        updateCharacterization
+        updateCharacterization,
+        changeMenuIndex
       }}
     >
       {props.children}

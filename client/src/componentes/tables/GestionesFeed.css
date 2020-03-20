@@ -1,0 +1,27 @@
+.gestion-extrajudicial .p-card-body{
+    border-top: 4px solid #0097a7;
+    background-color: #00bcd4;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.gestion-judicial .p-card-body{
+    border-top: 4px solid #ad1457;
+    background-color: #e91e63;
+}
+.gestion-visita-domicilio .p-card-body{
+    border-top: 4px solid #f47b08;
+    background-color: #ffb300;
+}
+.gestion-visita-trabajo .p-card-body{
+    border-top: 4px solid #455a64;
+    background-color: #607d8b;
+}
+.gestion-extrajudicial .p-card-body{
+    border-top: 4px solid #0097a7;
+    background-color: #00bcd4;
+}
+
+.unstyled-button {
+    border:none;
+ }

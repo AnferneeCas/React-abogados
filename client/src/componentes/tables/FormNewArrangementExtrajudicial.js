@@ -3,14 +3,16 @@ import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
+
 
 //CONTEXTS
 import mainTableContext from "../../context/mainTable/mainTableContext";
+import gestionesFeedContext from '../../context/gestionesFeed/gestionesFeedContext';
 
 const FormNewArrangementExtrajudicial = ({ selectedCharacterizationprop }) => {
   const [arrangement, setArrangement] = useState("");
   const [date, setDate] = useState(new Date());
+ 
   const [selectedCharacterization, setSelectedCharacterization] = useState({
     label: "",
     value: ""
@@ -21,9 +23,14 @@ const FormNewArrangementExtrajudicial = ({ selectedCharacterizationprop }) => {
     selectedAccount,
     characterizations,
     getCharacterization,
-    changeShowAddArrangementAccion
+    showMenu
   } = MainTableContext;
 
+
+  const GestionesFeedContext = useContext(gestionesFeedContext);
+  const {
+    addGestiones
+  }= GestionesFeedContext
   //HANDLE CHANGES IN THE ARRANGEMENT INPUT
   const handleChange = e => {
     setArrangement(e.target.value);
@@ -76,6 +83,12 @@ const FormNewArrangementExtrajudicial = ({ selectedCharacterizationprop }) => {
     weekHeader: "Sm"
   };
 
+
+  const onSubmitHandler = (e)=>{
+    e.preventDefault();
+    showMenu(false)
+  }
+
   useEffect(() => {
     getCharacterization();
     if (selectedCharacterizationprop !== undefined)
@@ -83,14 +96,10 @@ const FormNewArrangementExtrajudicial = ({ selectedCharacterizationprop }) => {
   }, [selectedCharacterizationprop]);
 
   return (
-    <Dialog
-      header={"anfer"}
-      visible={true}
-      style={{ width: "30vw", height: "10vw" }}
-      modal={true}
-      onHide={() => changeShowAddArrangementAccion(false)}
-    >
-      <form id="form-new-arrangement-extrajudicial">
+    
+
+
+    <form onSubmit={e => onSubmitHandler(e)} id="form-new-arrangement-extrajudicial">
         <div className="p-grid">
           <div className="p-col-12">
             <span className="p-float-label">
@@ -133,11 +142,13 @@ const FormNewArrangementExtrajudicial = ({ selectedCharacterizationprop }) => {
             <Button
               label="Ingresar Gestion"
               className="p-button-raised p-button-rounded"
+              onClick = {()=>{addGestiones({texto:arrangement,fecha:date})}}
             />
           </div>
         </div>
       </form>
-    </Dialog>
+   
+    
   );
 };
 

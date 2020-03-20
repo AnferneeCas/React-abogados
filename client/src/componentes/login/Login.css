@@ -1,0 +1,33 @@
+.form{
+    /* width: 500px;
+    height: 500px;
+    background-color: black; */
+    
+  width: 500px;
+  height: 500px;
+  margin-top: 10%;
+  background: rgb(201, 201, 201);
+  padding: 10%;
+  
+}
+
+.email{
+   width: 100%;
+}
+ #btn{
+    margin-top: 15%;
+}
+
+.password{
+    width: 100%;
+    margin-top: 10%;
+ }
+body{
+    
+    background-color:#3a5b7b;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    
+}

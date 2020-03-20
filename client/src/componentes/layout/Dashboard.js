@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useEffect } from "react";
 import dashboardContext from "../../context/dashboard/dashboardContext";
 
 //Components
@@ -16,7 +16,9 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "./Dashboard.css";
 import "../tables/FormNewArrangementExtrajudicial.css";
-const Dashboard = () => {
+import "../tables/GestionesFeed.css";
+
+const Dashboard = props => {
   const DashboardContext = useContext(dashboardContext);
 
   return (

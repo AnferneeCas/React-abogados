@@ -1,27 +1,51 @@
 import React, { Fragment } from "react";
 import "./SideMenu.css";
-
+import firebase from "../../firebase";
 //primeReact components
 import { PanelMenu } from "primereact/panelmenu";
 
-const SideMenu = () => {
+const SideMenu = props => {
   const state = {
     items: [
       {
-        label: "File",
-        icon: "pi pi-fw pi-file"
+        label: "Dashboard",
+        icon: "pi pi-fw pi-users",
+        command: () => {
+          window.location = "/dashboard";
+        }
       },
       {
-        label: "Events",
-        icon: "pi pi-fw pi-calendar",
+        label: "Agregar Data",
+        icon: "pi pi-fw pi-user-plus",
         items: [
           {
-            label: "Archieve",
-            icon: "pi pi-fw pi-calendar-times",
+            label: "Agregar nuevos clientes",
+            icon: "",
             items: [
               {
-                label: "Remove",
-                icon: "pi pi-fw pi-calendar-minus"
+                label: "Descargar plantilla",
+                icon: "pi pi-fw pi-download"
+              },
+              {
+                label: "Subir plantilla",
+                icon: "pi pi-fw pi-upload"
+              }
+            ],
+            command: onclick => {
+              console.log("test");
+            }
+          },
+          {
+            label: "Actualizar saldos",
+            icon: "",
+            items: [
+              {
+                label: "Descargar plantilla",
+                icon: "pi pi-fw pi-download"
+              },
+              {
+                label: "Subir plantilla",
+                icon: "pi pi-fw pi-upload"
               }
             ],
             command: onclick => {
@@ -29,6 +53,19 @@ const SideMenu = () => {
             }
           }
         ]
+      },
+      {
+        label: "Banco de cartas",
+        icon: "pi pi-fw pi-envelope"
+      },
+      {
+        label: "Cerrar Session",
+        icon: "pi pi-fw pi-envelope",
+        command: () => {
+          firebase.logout().then(() => {
+            window.location = "/";
+          });
+        }
       }
     ]
   };

@@ -1,10 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, createRef } from "react";
 import "./SideMenu.css";
 import firebase from "../../firebase";
+import { FileUpload } from "primereact/fileupload";
+
 //primeReact components
 import { PanelMenu } from "primereact/panelmenu";
 
 const SideMenu = props => {
+  var uploadRef = createRef();
   const state = {
     items: [
       {
@@ -24,16 +27,19 @@ const SideMenu = props => {
             items: [
               {
                 label: "Descargar plantilla",
-                icon: "pi pi-fw pi-download"
+                icon: "pi pi-fw pi-download",
+                command: onclick => {
+                  descargarPlantillaAgregarCliente(0);
+                }
               },
               {
                 label: "Subir plantilla",
-                icon: "pi pi-fw pi-upload"
+                icon: "pi pi-fw pi-upload",
+                command: onclick => {
+                  document.getElementsByTagName(`input`)[0].click();
+                }
               }
-            ],
-            command: onclick => {
-              console.log("test");
-            }
+            ]
           },
           {
             label: "Actualizar saldos",
@@ -45,11 +51,15 @@ const SideMenu = props => {
               },
               {
                 label: "Subir plantilla",
-                icon: "pi pi-fw pi-upload"
+                icon: "pi pi-fw pi-upload",
+                command: onclick => {
+                  // document.getElementsByTagName(`input`)[0].click();
+                }
               }
             ],
             command: onclick => {
               console.log("test");
+              // document.getElementById("input").click();
             }
           }
         ]
@@ -69,8 +79,35 @@ const SideMenu = props => {
       }
     ]
   };
+
+  const descargarPlantillaAgregarCliente = async id => {
+    var downloadUrl = await firebase.downloadForm(id);
+
+    window.location.href = downloadUrl;
+  };
+
+  const agregarClientesCustomUpload = event => {
+    console.log("uploading");
+    console.log(event.files);
+
+    uploadRef.current.clear();
+    // uploadRef.current;
+
+    firebase.uploadFile(event.files[0], firebase.auth.currentUser.uid);
+  };
   return (
     <Fragment>
+      <FileUpload
+        name="demo"
+        style={{ display: "none" }}
+        id="up"
+        customUpload={true}
+        uploadHandler={agregarClientesCustomUpload}
+        multiple={false}
+        auto={true}
+        ref={uploadRef}
+      ></FileUpload>
+
       <div className="sideMenu">
         <PanelMenu
           className="sideMenuMainButton"

@@ -6,13 +6,13 @@ import mainTableContext from "../../context/mainTable/mainTableContext";
 
 //Components
 
-import {TabView,TabPanel} from 'primereact/tabview';
+import { TabView, TabPanel } from "primereact/tabview";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { ContextMenu } from "primereact/contextmenu";
 import FormNewArrangementExtrajudicial from "./FormNewArrangementExtrajudicial";
-import Menu from '../tables/menu/Menu';
+import Menu from "../tables/menu/Menu";
 const MainTable = () => {
   var cm = createRef();
   var MainTableContext = useContext(mainTableContext);
@@ -33,9 +33,9 @@ const MainTable = () => {
     {
       label: "Agregar Gestion Extrajudicial",
       icon: "pi pi-fw pi-plus",
-      tabNumber:0,
+      tabNumber: 0,
       command: event => {
-        changeMenuIndex(0)
+        changeMenuIndex(0);
         // viewAccount(selectedAccount);
         showMenu(true);
       }
@@ -43,9 +43,9 @@ const MainTable = () => {
     {
       label: "Agregar Gestion Judicial",
       icon: "pi pi-fw pi-plus",
-      tabNumber:1,
+      tabNumber: 1,
       command: event => {
-        changeMenuIndex(1)
+        changeMenuIndex(1);
         // viewAccount(selectedAccount);
         showMenu(true);
       }
@@ -53,9 +53,9 @@ const MainTable = () => {
     {
       label: "Ver gestiones",
       icon: "pi pi-fw pi-plus",
-      tabNumber:2,
+      tabNumber: 2,
       command: event => {
-        changeMenuIndex(2)
+        changeMenuIndex(2);
         // viewAccount(selectedAccount);
         showMenu(true);
       }
@@ -63,9 +63,9 @@ const MainTable = () => {
     {
       label: "Mas informacion",
       icon: "pi pi-fw pi-plus",
-      tabNumber:3,
+      tabNumber: 3,
       command: event => {
-        changeMenuIndex(3)
+        changeMenuIndex(3);
         // viewAccount(selectedAccount);
         showMenu(true);
       }
@@ -90,15 +90,15 @@ const MainTable = () => {
         <ContextMenu model={mn} ref={el => (cm = el)} />
 
         {isMenuActive ? (
-          
-          <Menu tabNumber={menuIndex}>
-
-          </Menu>
-          // <FormNewArrangementExtrajudicial
-          //   selectedCharacterizationprop={selectedAccount.characterization}
-          //   show={true}
-          // ></FormNewArrangementExtrajudicial>
-        ) : null}
+          <Menu
+            tabNumber={menuIndex}
+            selectedCharacterizationProp={selectedAccount.characterization}
+          ></Menu>
+        ) : // <FormNewArrangementExtrajudicial
+        //   selectedCharacterizationprop={selectedAccount.characterization}
+        //   show={true}
+        // ></FormNewArrangementExtrajudicial>
+        null}
         <DataTable
           style={{ textAlign: "Center" }}
           value={accounts}
@@ -111,13 +111,17 @@ const MainTable = () => {
           onContextMenu={e => cm.show(e.originalEvent)}
         >
           <Column field="nombre" header="Nombre" filter={true} />
-          <Column field="id" header="Identidad" filter={true} />
+          <Column field="cuentaId" header="Numero vasa" filter={true} />
           <Column
-            field="caracterizacion"
-            header="Caracterizacion"
+            field="Caracterizacion Actual"
+            header="Caracterizacion Actual"
             filter={true}
           />
-          <Column field="celular" header="Celular" filter={true} />
+          <Column
+            field="Estado Cartera"
+            header="Estado Cartera"
+            filter={true}
+          />
         </DataTable>
       </div>
     </div>
